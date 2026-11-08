@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday, Dim Vai! 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+<canvas id="bg"></canvas>
+<canvas id="fx"></canvas>
+
+<!-- OPENING SCREEN -->
+<section id="intro">
+  <div class="orb"></div>
+  <p class="script big">Something Special For Someone Special ❤️</p>
+  <p class="sub">A little surprise, made just for <span class="name"></span></p>
+  <button id="openBtn" class="btn">Open Your Surprise 🎁</button>
+</section>
+
+<main id="experience">
+  <!-- HERO -->
+  <section id="hero">
+    <div class="balloons" data-n="9"></div>
+    <p class="sub">Today the stars are celebrating you</p>
+    <h1 class="script glow">Happy Birthday,<br><span class="name"></span>! 🎂</h1>
+    <p id="wishLine" class="wish-line"></p>
+    <a href="#cakeSec" class="scroll">Scroll down ↓</a>
+  </section>
+
+  <!-- INTERACTIVE CAKE -->
+  <section id="cakeSec" class="reveal">
+    <h2 class="script">Light up the night</h2>
+    <p class="sub" id="cakeHint">Tap each candle to blow it out — or blow them all at once</p>
+    <div class="cake">
+      <div class="candles" id="candles"></div>
+      <div class="tier t3"></div><div class="tier t2"></div><div class="tier t1"></div><div class="plate"></div>
+    </div>
+    <button id="blowBtn" class="btn ghost">Blow the candles 💨</button>
+    <div id="wishBox" class="glass hidden">
+      <p class="script">Your wish has been heard 🌟</p>
+      <p>May every candle you blew out come true, <span class="name"></span>.</p>
+      <button id="wishBtn" class="btn">Make a Wish ✨</button>
+    </div>
+  </section>
+
+  <!-- PERSONAL MESSAGE -->
+  <section id="message" class="reveal">
+    <article class="glass letter">
+      <h2 class="script">A letter for you</h2>
+      <div id="msgBody"></div>
+    </article>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="reveal">
+    <h2 class="script">Some moments we have passed</h2>
+    <div id="grid"></div>
+  </section>
+
+  <!-- GIFT -->
+  <section id="surprise" class="reveal">
+    <h2 class="script">One more thing…</h2>
+    <p class="sub" id="giftHint">Tap the gift to open it</p>
+    <button id="gift" class="gift" aria-label="Open the gift">
+      <span class="rays"></span><span class="lid"></span><span class="box"></span>
+    </button>
+    <div id="giftMsg" class="glass hidden"></div>
+  </section>
+
+  <!-- FINALE -->
+  <section id="final">
+    <div class="balloons" data-n="12"></div>
+    <h2 class="script glow huge">Once Again,<br>Happy Birthday! ❤️</h2>
+    <p class="sub">With all my love, today and always.</p>
+    <button id="replayBtn" class="btn">Replay the magic 🔁</button>
+  </section>
+</main>
+
+<!-- MUSIC PLAYER -->
+<div id="player" class="glass">
+  <button id="playBtn" aria-label="Play or pause music">▶</button>
+  <div class="viz" id="viz"></div>
+  <input id="seek" type="range" min="0" max="100" value="0" aria-label="Progress">
+  <input id="vol" type="range" min="0" max="1" step="0.05" value="0.6" aria-label="Volume">
+</div>
+
+<div id="lightbox"><button aria-label="Close">✕</button><figure><img alt=""><figcaption></figcaption></figure></div>
+<div id="toast"></div>
+<audio id="audio" loop preload="auto"></audio>
+<script src="script.js"></script>
+</body>
+</html>

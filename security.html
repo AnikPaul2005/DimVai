@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#100b24" />
+  <title>Private Birthday Surprise</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --pink: #ff8fc7;
+      --purple: #a78bfa;
+      --glass: rgba(255,255,255,.09);
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(167,139,250,.24), transparent 32%),
+        radial-gradient(circle at 85% 80%, rgba(255,143,199,.2), transparent 30%),
+        linear-gradient(135deg, #090718, #17102f 55%, #090718);
+      padding: 22px;
+    }
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      filter: blur(85px);
+      opacity: .22;
+      pointer-events: none;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    body::before { background: #9b5de5; top: -150px; left: -100px; }
+    body::after { background: #f15bb5; bottom: -170px; right: -100px; animation-delay: -5s; }
+    @keyframes drift { to { transform: translate(55px, 35px) scale(1.2); } }
+
+    .stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+    .star {
+      position: absolute; width: 3px; height: 3px; border-radius: 50%;
+      background: #fff; opacity: .55; box-shadow: 0 0 12px #fff;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+    @keyframes twinkle { 50% { opacity: .12; transform: scale(.55); } }
+
+    .card {
+      position: relative;
+      width: min(100%, 440px);
+      padding: 42px 34px 34px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 28px;
+      background: var(--glass);
+      box-shadow: 0 25px 80px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.12);
+      backdrop-filter: blur(22px);
+      animation: appear .85s cubic-bezier(.2,.8,.2,1) both;
+    }
+    @keyframes appear { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
+    .lock {
+      width: 76px; height: 76px; margin: 0 auto 22px;
+      display: grid; place-items: center; font-size: 34px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,143,199,.25), rgba(167,139,250,.22));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 0 35px rgba(255,143,199,.16);
+    }
+    .eyebrow {
+      color: #e9c8ff; text-transform: uppercase; letter-spacing: .22em;
+      font-size: 10px; font-weight: 700; margin: 0 0 12px;
+    }
+    h1 { font-size: clamp(27px, 7vw, 35px); line-height: 1.15; margin: 0; letter-spacing: -.04em; }
+    h1 span {
+      background: linear-gradient(90deg, #ffd1e8, #c9b6ff, #ffd1e8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .intro { color: rgba(255,255,255,.72); line-height: 1.65; font-size: 14px; margin: 15px 0 27px; }
+    label { display: block; text-align: left; color: rgba(255,255,255,.8); font-size: 12px; margin: 0 0 9px 3px; }
+    .input-wrap { position: relative; }
+    input {
+      width: 100%; height: 54px; border-radius: 15px; outline: none;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(7,5,20,.48); color: #fff;
+      padding: 0 48px 0 17px; font-size: 15px; letter-spacing: .08em;
+      transition: border .2s, box-shadow .2s;
+    }
+    input::placeholder { color: rgba(255,255,255,.35); letter-spacing: 0; }
+    input:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(255,143,199,.12); }
+    .toggle {
+      position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+      border: 0; background: transparent; color: rgba(255,255,255,.65);
+      cursor: pointer; font-size: 17px; padding: 5px;
+    }
+    .enter {
+      width: 100%; height: 54px; margin-top: 17px; border: 0; border-radius: 15px;
+      color: #25102e; font-weight: 800; font-size: 14px; letter-spacing: .02em;
+      cursor: pointer; background: linear-gradient(100deg, #ffc1df, #c9b6ff);
+      box-shadow: 0 10px 28px rgba(196,143,255,.2);
+      transition: transform .2s, filter .2s, box-shadow .2s;
+    }
+    .enter:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 14px 34px rgba(196,143,255,.3); }
+    .enter:active { transform: translateY(0); }
+    .message { min-height: 22px; margin: 13px 0 0; font-size: 12px; color: #ffb5d5; }
+    .hint { color: rgba(255,255,255,.4); font-size: 11px; margin: 20px 0 0; }
+    .shake { animation: shake .35s ease; }
+    @keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+    .success { animation: success .65s ease forwards; }
+    @keyframes success { to { opacity: 0; transform: scale(1.04); filter: blur(8px); } }
+    @media (max-width: 420px) { .card { padding: 35px 23px 27px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars" aria-hidden="true"></div>
+
+  <main class="card" id="card">
+    <div class="lock" aria-hidden="true">🔐</div>
+    <p class="eyebrow">A little something, just for you</p>
+    <h1>A <span>Special Surprise</span><br>Awaits You ✨</h1>
+    <p class="intro">This little celebration is private.<br>Enter the secret password to unlock your birthday surprise. 🎂</p>
+
+    <form id="loginForm">
+      <label for="password">SECRET PASSWORD</label>
+      <div class="input-wrap">
+        <input id="password" type="password" placeholder="Enter the secret password" autocomplete="off" required />
+        <button class="toggle" type="button" id="togglePassword" aria-label="Show password">◉</button>
+      </div>
+      <button class="enter" type="submit">Unlock the Surprise&nbsp; ✨</button>
+      <p class="message" id="message" role="status" aria-live="polite"></p>
+    </form>
+    <p class="hint">Made with love, just for this special day ♡</p>
+  </main>
+
+  <script>
+    /*
+      CUSTOMIZE THESE TWO VALUES:
+      1) Change SECRET_PASSWORD to your chosen password.
+      2) Change DESTINATION_PAGE if Claude's main birthday file has another name.
+    */
+    const SECRET_PASSWORD = "02112002";
+    const DESTINATION_PAGE = "index.html";
+
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 65; i++) {
+      const star = document.createElement("i");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.animationDelay = (Math.random() * 3) + "s";
+      star.style.animationDuration = (2 + Math.random() * 3) + "s";
+      stars.appendChild(star);
+    }
+
+    const form = document.getElementById("loginForm");
+    const input = document.getElementById("password");
+    const message = document.getElementById("message");
+    const card = document.getElementById("card");
+
+    document.getElementById("togglePassword").addEventListener("click", () => {
+      const showing = input.type === "text";
+      input.type = showing ? "password" : "text";
+      document.getElementById("togglePassword").textContent = showing ? "◉" : "◎";
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (input.value === SECRET_PASSWORD) {
+        message.textContent = "Access granted! Your surprise is opening… 💖";
+        message.style.color = "#b8ffd8";
+        card.classList.add("success");
+        setTimeout(() => {
+          window.location.href = DESTINATION_PAGE;
+        }, 700);
+      } else {
+        message.textContent = "That password isn't quite right. Try again 💗";
+        card.classList.remove("shake");
+        void card.offsetWidth;
+        card.classList.add("shake");
+        input.value = "";
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
